@@ -1,139 +1,188 @@
-
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Card, CardContent } from "@/components/ui/card";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { toast } from "@/hooks/use-toast";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { useEvents } from "@/hooks/useEvents";
 import { useAwards } from "@/hooks/useAwards";
-import EventForm from "@/components/EventForm";
-import AwardForm from "@/components/AwardForm";
 import EventList from "@/components/EventList";
+import EventForm from "@/components/EventForm";
 import AwardList from "@/components/AwardList";
-import { LogOut } from "lucide-react";
+import AwardForm from "@/components/AwardForm";
+import { Eye, EyeOff } from "lucide-react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import StorageInfo from "@/components/StorageInfo";
 
 const Admin = () => {
-  const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [showEventForm, setShowEventForm] = useState(false);
-  const [showAwardForm, setShowAwardForm] = useState(false);
+  const [password, setPassword] = useState("");
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [isEventFormOpen, setIsEventFormOpen] = useState(false);
+  const [isAwardFormOpen, setIsAwardFormOpen] = useState(false);
+  const [editingEvent, setEditingEvent] = useState<any>(null);
+  const [editingAward, setEditingAward] = useState<any>(null);
   const { events, addEvent, updateEvent, deleteEvent } = useEvents();
   const { awards, addAward, updateAward, deleteAward } = useAwards();
-  
+
   useEffect(() => {
-    const checkLogin = () => {
-      const isAdminLoggedIn = localStorage.getItem("isAdminLoggedIn") === "true";
-      if (!isAdminLoggedIn) {
-        navigate("/");
-        toast({
-          title: "Access denied",
-          description: "You must be logged in to access the admin dashboard",
-          variant: "destructive",
-        });
-      } else {
-        setIsLoggedIn(true);
-      }
-    };
-    
-    checkLogin();
-  }, [navigate]);
-  
-  const handleLogout = () => {
-    localStorage.removeItem("isAdminLoggedIn");
-    navigate("/");
-    toast({
-      title: "Logged out",
-      description: "You have been successfully logged out",
-    });
+    const storedLogin = localStorage.getItem("adminLoggedIn");
+    if (storedLogin === "true") {
+      setLoggedIn(true);
+    }
+  }, []);
+
+  const checkPassword = async () => {
+    // Simulate password check against environment variable
+    const correctPassword = process.env.REACT_APP_ADMIN_PASSWORD;
+    if (password === correctPassword) {
+      setLoggedIn(true);
+      localStorage.setItem("adminLoggedIn", "true");
+    } else {
+      alert("Incorrect password");
+    }
   };
-  
-  if (!isLoggedIn) {
-    return null; // Don't render anything if not logged in
+
+  const handleLogout = () => {
+    setLoggedIn(false);
+    localStorage.removeItem("adminLoggedIn");
+  };
+
+  const handleEventSubmit = (eventData: any) => {
+    if (editingEvent) {
+      updateEvent(editingEvent.id, eventData);
+      setEditingEvent(null);
+    } else {
+      addEvent(eventData);
+    }
+    setIsEventFormOpen(false);
+  };
+
+  const handleAwardSubmit = (awardData: any) => {
+    if (editingAward) {
+      updateAward(editingAward.id, awardData);
+      setEditingAward(null);
+    } else {
+      addAward(awardData);
+    }
+    setIsAwardFormOpen(false);
+  };
+
+  const handleDeleteEvent = (id: string) => {
+    deleteEvent(id);
+  };
+
+  const handleDeleteAward = (id: string) => {
+    deleteAward(id);
+  };
+
+  if (!loggedIn) {
+    return (
+      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+        <Card className="w-full max-w-md p-8">
+          <CardHeader>
+            <CardTitle className="text-2xl text-center">Admin Login</CardTitle>
+            <CardDescription className="text-center text-gray-500">
+              Enter the admin password to continue
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="password">Password</Label>
+              <div className="relative">
+                <Input
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="pr-10"
+                />
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="absolute right-1 top-1/2 -translate-y-1/2 hover:bg-gray-100"
+                  onClick={() => setShowPassword(!showPassword)}
+                  type="button"
+                >
+                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                </Button>
+              </div>
+            </div>
+            <Button className="w-full" onClick={checkPassword}>
+              Login
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    );
   }
-  
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-purple-50 to-white p-6">
-      <header className="mb-8 flex justify-between items-center">
-        <h1 className="text-3xl font-bold text-purple-900">IEEE WIE SB Admin Dashboard</h1>
-        <Button variant="outline" onClick={handleLogout} className="flex items-center gap-2">
-          <LogOut size={16} />
-          Logout
-        </Button>
-      </header>
-      
-      <Tabs defaultValue="events" className="w-full">
-        <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 mb-8">
-          <TabsTrigger value="events">Events</TabsTrigger>
-          <TabsTrigger value="awards">Awards</TabsTrigger>
-        </TabsList>
-        
-        <TabsContent value="events" className="space-y-6">
-          <Card>
-            <CardContent className="pt-6">
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-semibold text-purple-800">Manage Events</h2>
-                <Button onClick={() => setShowEventForm(true)}>Add New Event</Button>
-              </div>
-              
-              <EventList 
-                events={events} 
-                onEdit={(event) => {
-                  // Implement edit functionality
-                }} 
-                onDelete={deleteEvent} 
-              />
-            </CardContent>
-          </Card>
-          
-          {showEventForm && (
-            <EventForm 
-              onSubmit={(eventData) => {
-                addEvent(eventData);
-                setShowEventForm(false);
-                toast({
-                  title: "Event added",
-                  description: "The event has been successfully added",
-                });
+    <div className="min-h-screen bg-gray-100 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mb-8 flex justify-between items-center">
+          <h1 className="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
+          <Button variant="outline" onClick={handleLogout}>
+            Logout
+          </Button>
+        </div>
+
+        <StorageInfo />
+
+        <Tabs defaultValue="events" className="w-full">
+          <TabsList className="mb-4">
+            <TabsTrigger value="events">Events</TabsTrigger>
+            <TabsTrigger value="awards">Awards</TabsTrigger>
+          </TabsList>
+          <TabsContent value="events">
+            <div className="mb-4">
+              <Button onClick={() => setIsEventFormOpen(true)}>Add New Event</Button>
+            </div>
+            <EventList
+              events={events}
+              onEdit={(event) => {
+                setEditingEvent(event);
+                setIsEventFormOpen(true);
               }}
-              onCancel={() => setShowEventForm(false)}
+              onDelete={handleDeleteEvent}
             />
-          )}
-        </TabsContent>
-        
-        <TabsContent value="awards" className="space-y-6">
-          <Card>
-            <CardContent className="pt-6">
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-semibold text-purple-800">Manage Awards</h2>
-                <Button onClick={() => setShowAwardForm(true)}>Add New Award</Button>
-              </div>
-              
-              <AwardList 
-                awards={awards} 
-                onEdit={(award) => {
-                  // Implement edit functionality
-                }} 
-                onDelete={deleteAward} 
-              />
-            </CardContent>
-          </Card>
-          
-          {showAwardForm && (
-            <AwardForm 
-              onSubmit={(awardData) => {
-                addAward(awardData);
-                setShowAwardForm(false);
-                toast({
-                  title: "Award added",
-                  description: "The award has been successfully added",
-                });
+          </TabsContent>
+          <TabsContent value="awards">
+            <div className="mb-4">
+              <Button onClick={() => setIsAwardFormOpen(true)}>Add New Award</Button>
+            </div>
+            <AwardList
+              awards={awards}
+              onEdit={(award) => {
+                setEditingAward(award);
+                setIsAwardFormOpen(true);
               }}
-              onCancel={() => setShowAwardForm(false)}
+              onDelete={handleDeleteAward}
             />
-          )}
-        </TabsContent>
-      </Tabs>
+          </TabsContent>
+        </Tabs>
+
+        {isEventFormOpen && (
+          <EventForm
+            event={editingEvent}
+            onSubmit={handleEventSubmit}
+            onCancel={() => {
+              setIsEventFormOpen(false);
+              setEditingEvent(null);
+            }}
+          />
+        )}
+
+        {isAwardFormOpen && (
+          <AwardForm
+            award={editingAward}
+            onSubmit={handleAwardSubmit}
+            onCancel={() => {
+              setIsAwardFormOpen(false);
+              setEditingAward(null);
+            }}
+          />
+        )}
+      </div>
     </div>
   );
 };

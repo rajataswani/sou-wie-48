@@ -9,6 +9,7 @@ import AwardCard from "@/components/AwardCard";
 import AdminLogin from "@/components/AdminLogin";
 import { useEvents } from "@/hooks/useEvents";
 import { useAwards } from "@/hooks/useAwards";
+import { Link } from "react-router-dom";
 
 const Index = () => {
   const [showAdminLogin, setShowAdminLogin] = useState(false);
@@ -31,11 +32,11 @@ const Index = () => {
             Empowering women in engineering and technology through leadership, collaboration, and innovation
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Button size="lg" className="bg-purple-700 hover:bg-purple-800">
-              Join Us
+            <Button size="lg" className="bg-purple-700 hover:bg-purple-800" asChild>
+              <Link to="/join-us">Join Us</Link>
             </Button>
-            <Button size="lg" variant="outline" className="border-purple-700 text-purple-700 hover:bg-purple-100">
-              Learn More
+            <Button size="lg" variant="outline" className="border-purple-700 text-purple-700 hover:bg-purple-100" asChild>
+              <Link to="/learn-more">Learn More</Link>
             </Button>
           </div>
         </div>
@@ -48,17 +49,18 @@ const Index = () => {
           
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <h3 className="text-2xl font-semibold text-purple-800 mb-4">Vision</h3>
+              <h3 className="text-2xl font-semibold text-purple-800 mb-4">Who We Are</h3>
               <p className="text-gray-700 mb-6">
-                To create a vibrant community at Silver Oak University where women in STEM fields can thrive through mentorship, 
-                professional development, and collaborative initiatives.
+                We are a dedicated group of students at Silver Oak University who are passionate about 
+                promoting diversity in engineering and technology fields. Our student branch works to 
+                create opportunities for women engineers through various initiatives and events.
               </p>
               
-              <h3 className="text-2xl font-semibold text-purple-800 mb-4">Mission</h3>
-              <p className="text-gray-700">
-                We strive to inspire and support women in engineering at Silver Oak University through workshops, 
-                networking opportunities, and technical projects that build confidence and skills for future leadership.
-              </p>
+              <div className="mt-6">
+                <Button variant="outline" className="border-purple-300 text-purple-700" asChild>
+                  <Link to="/learn-more">Read More About Our Mission</Link>
+                </Button>
+              </div>
             </div>
             
             <Card className="shadow-lg">
