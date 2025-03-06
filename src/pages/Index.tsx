@@ -76,7 +76,7 @@ const Index = () => {
                   </li>
                   <li className="flex justify-between">
                     <span className="font-medium">Vice Chairperson</span>
-                    <span>Jalak Rajvanshi</span>
+                    <span>Zalak Rajvanshi</span>
                   </li>
                   <li className="flex justify-between">
                     <span className="font-medium">Secretary</span>
