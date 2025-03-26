@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -10,6 +11,7 @@ import { useAwards } from "@/hooks/useAwards";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import { Calendar as CalendarIcon, Award as AwardIcon } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
 
 const Index = () => {
   const [showAdminLogin, setShowAdminLogin] = useState(false);
@@ -18,7 +20,9 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-50 to-white">
-      <Navbar />
+      <div className="pt-6">
+        <Navbar />
+      </div>
       
       {/* Hero Section */}
       <section className="relative py-24 px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center text-center min-h-[80vh]">
@@ -35,7 +39,7 @@ const Index = () => {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Button size="lg" className="bg-purple-700 hover:bg-purple-800" asChild>
-              <Link to="/join-us">Join Us</Link>
+              <a href="https://ieee.socet.edu.in/contact/" target="_blank" rel="noopener noreferrer">Join Us</a>
             </Button>
             <Button size="lg" variant="outline" className="border-purple-700 text-purple-700 hover:bg-purple-100" asChild>
               <Link to="/learn-more">Learn More</Link>
@@ -71,36 +75,52 @@ const Index = () => {
                 <CardDescription>The driving force behind our initiatives</CardDescription>
               </CardHeader>
               <CardContent>
-                <ul className="space-y-3">
-                  <li className="flex justify-between">
+                {/* Mentor Section */}
+                <div className="mb-4">
+                  <div className="flex justify-between">
                     <span className="font-medium">Mentor and Founding Member</span>
                     <span>Dr. Satvik Khara Sir</span>
-                  </li>
-                  <li className="flex justify-between">
+                  </div>
+                </div>
+
+                <Separator className="my-3" />
+
+                {/* Faculty Advisor Section */}
+                <div className="mb-4">
+                  <div className="flex justify-between">
                     <span className="font-medium">Faculty Advisor</span>
                     <span>Prof. Gaurav Tiwari Sir</span>
-                  </li>
-                  <li className="flex justify-between">
-                    <span className="font-medium">Chairperson</span>
-                    <span>Ravina Gajipara</span>
-                  </li>
-                  <li className="flex justify-between">
-                    <span className="font-medium">Vice Chairperson</span>
-                    <span>Zalak Rajvanshi</span>
-                  </li>
-                  <li className="flex justify-between">
-                    <span className="font-medium">Secretary</span>
-                    <span>Vedant Agrawal</span>
-                  </li>
-                  <li className="flex justify-between">
-                    <span className="font-medium">Treasurer</span>
-                    <span>Payal Rana</span>
-                  </li>
-                  <li className="flex justify-between">
-                    <span className="font-medium">Webmaster</span>
-                    <span>Jatin Kavani</span>
-                  </li>
-                </ul>
+                  </div>
+                </div>
+
+                <Separator className="my-3" />
+
+                {/* Executive Team Section */}
+                <div>
+                  <h4 className="font-semibold text-purple-700 mb-2">Executive Team</h4>
+                  <ul className="space-y-3">
+                    <li className="flex justify-between">
+                      <span className="font-medium">Chairperson</span>
+                      <span>Ravina Gajipara</span>
+                    </li>
+                    <li className="flex justify-between">
+                      <span className="font-medium">Vice Chairperson</span>
+                      <span>Zalak Rajvanshi</span>
+                    </li>
+                    <li className="flex justify-between">
+                      <span className="font-medium">Secretary</span>
+                      <span>Vedant Agrawal</span>
+                    </li>
+                    <li className="flex justify-between">
+                      <span className="font-medium">Treasurer</span>
+                      <span>Payal Rana</span>
+                    </li>
+                    <li className="flex justify-between">
+                      <span className="font-medium">Webmaster</span>
+                      <span>Jatin Kavani</span>
+                    </li>
+                  </ul>
+                </div>
               </CardContent>
             </Card>
           </div>
