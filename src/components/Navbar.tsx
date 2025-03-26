@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ExternalLink, Menu, X } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -11,13 +11,28 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   
   const navItems = [
-    { label: "Home", href: "/", isExternal: false },
-    { label: "About", href: "#about", isExternal: false },
-    { label: "Activities", href: "#activities", isExternal: false },
-    { label: "IEEE WIE", href: "https://wie.ieee.org/", isExternal: true },
-    { label: "Learn More", href: "/learn-more", isExternal: false },
-    { label: "Join Us", href: "https://ieee.socet.edu.in/contact/", isExternal: true },
+    { label: "Home", href: "/", isExternal: false, isScroll: false },
+    { label: "About", href: "#about", isExternal: false, isScroll: true },
+    { label: "Activities", href: "#activities", isExternal: false, isScroll: true },
+    { label: "IEEE WIE", href: "https://wie.ieee.org/", isExternal: true, isScroll: false },
+    { label: "Learn More", href: "/learn-more", isExternal: false, isScroll: false },
+    { label: "Join Us", href: "https://ieee.socet.edu.in/contact/", isExternal: true, isScroll: false },
   ];
+  
+  const handleScrollClick = (event, href) => {
+    event.preventDefault();
+    setIsOpen(false);
+    
+    // Get the target element and scroll to it
+    const targetId = href.substring(1); // Remove the '#' from the href
+    const targetElement = document.getElementById(targetId);
+    
+    if (targetElement) {
+      setTimeout(() => {
+        targetElement.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    }
+  };
   
   const renderNavItem = (item, index) => (
     <li key={index}>
@@ -30,6 +45,14 @@ const Navbar = () => {
           onClick={() => setIsOpen(false)}
         >
           {item.label} {item.label === "IEEE WIE" && <ExternalLink className="h-3 w-3" />}
+        </a>
+      ) : item.isScroll ? (
+        <a 
+          href={item.href} 
+          className="hover:text-purple-600"
+          onClick={(e) => handleScrollClick(e, item.href)}
+        >
+          {item.label}
         </a>
       ) : (
         <Link 
