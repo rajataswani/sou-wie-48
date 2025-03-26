@@ -1,25 +1,26 @@
 
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { InfoIcon } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { DatabaseIcon, InfoIcon } from "lucide-react";
 
 const StorageInfo = () => {
   return (
-    <Alert className="bg-blue-50 border-blue-200 mb-6">
-      <InfoIcon className="h-5 w-5 text-blue-600" />
-      <AlertTitle className="text-blue-800">About Data Storage</AlertTitle>
-      <AlertDescription className="text-blue-700">
-        Currently, all events and awards are stored in your browser's local storage.
-        This means the data will persist on this device but won't be shared across devices.
-        <br />
-        <br />
-        For a production deployment, you might want to consider:
-        <ul className="list-disc pl-5 mt-2 space-y-1">
-          <li>A database service like Firebase or Supabase</li>
-          <li>A content management system like Sanity or Contentful</li>
-          <li>A simple JSON file hosted on your server</li>
-        </ul>
-      </AlertDescription>
-    </Alert>
+    <Card className="mb-6 bg-purple-50">
+      <CardContent className="pt-6">
+        <div className="flex items-start gap-3">
+          <InfoIcon className="h-5 w-5 text-purple-700 mt-0.5 flex-shrink-0" />
+          <div>
+            <h3 className="font-semibold text-purple-800 mb-1">Data Storage Information</h3>
+            <p className="text-sm text-gray-600">
+              All events and awards are stored in Firebase Firestore database. Changes made here will be visible to all users in real-time.
+            </p>
+            <div className="flex items-center gap-2 mt-3 text-sm text-purple-700">
+              <DatabaseIcon className="h-4 w-4" />
+              <span>Firebase Firestore Connected</span>
+            </div>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
   );
 };
 

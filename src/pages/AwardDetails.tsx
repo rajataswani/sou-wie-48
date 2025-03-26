@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { CalendarIcon, AwardIcon, ArrowLeft } from "lucide-react";
 import Navbar from "@/components/Navbar";
+import { db } from "@/lib/firebase";
+import { doc, getDoc } from "firebase/firestore";
 
 const AwardDetails = () => {
   const { id } = useParams();
@@ -13,21 +15,31 @@ const AwardDetails = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Load award from localStorage
-    try {
-      const savedAwards = localStorage.getItem("wieAwards");
-      if (savedAwards) {
-        const awards = JSON.parse(savedAwards);
-        const foundAward = awards.find((a: Award) => a.id === id);
-        if (foundAward) {
-          setAward(foundAward);
+    const fetchAward = async () => {
+      if (!id) return;
+      
+      try {
+        const awardRef = doc(db, "awards", id);
+        const awardDoc = await getDoc(awardRef);
+        
+        if (awardDoc.exists()) {
+          const awardData = awardDoc.data();
+          setAward({
+            id: awardDoc.id,
+            title: awardData.title || "",
+            date: awardData.date || "",
+            description: awardData.description || "",
+            imageUrl: awardData.imageUrl || ""
+          });
         }
+      } catch (error) {
+        console.error("Error fetching award:", error);
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      console.error("Error loading award:", error);
-    } finally {
-      setLoading(false);
-    }
+    };
+
+    fetchAward();
   }, [id]);
 
   if (loading) {

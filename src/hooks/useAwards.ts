@@ -1,19 +1,33 @@
 
 import { useState, useEffect } from "react";
 import { type Award } from "@/types/content";
+import { db } from "@/lib/firebase";
+import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
 
 export function useAwards() {
   const [awards, setAwards] = useState<Award[]>([]);
   const [loading, setLoading] = useState(true);
   
+  // Convert Firestore document to Award type
+  const convertDocToAward = (doc: QueryDocumentSnapshot<DocumentData>): Award => {
+    const data = doc.data();
+    return {
+      id: doc.id,
+      title: data.title || "",
+      date: data.date || "",
+      description: data.description || "",
+      imageUrl: data.imageUrl || ""
+    };
+  };
+  
   useEffect(() => {
-    // Load awards from localStorage
-    const loadAwards = () => {
+    // Load awards from Firestore
+    const loadAwards = async () => {
       try {
-        const savedAwards = localStorage.getItem("wieAwards");
-        if (savedAwards) {
-          setAwards(JSON.parse(savedAwards));
-        }
+        const awardsCollection = collection(db, "awards");
+        const awardSnapshot = await getDocs(awardsCollection);
+        const awardsList = awardSnapshot.docs.map(convertDocToAward);
+        setAwards(awardsList);
       } catch (error) {
         console.error("Error loading awards:", error);
       } finally {
@@ -22,46 +36,53 @@ export function useAwards() {
     };
     
     loadAwards();
-    
-    // Listen for storage events to update in real-time across tabs
-    const handleStorageChange = (e: StorageEvent) => {
-      if (e.key === "wieAwards" && e.newValue) {
-        setAwards(JSON.parse(e.newValue));
-      }
-    };
-    
-    window.addEventListener("storage", handleStorageChange);
-    
-    return () => {
-      window.removeEventListener("storage", handleStorageChange);
-    };
   }, []);
   
-  const addAward = (award: Omit<Award, "id">) => {
-    const newAward = {
-      ...award,
-      id: Date.now().toString(),
-    };
-    
-    const updatedAwards = [...awards, newAward];
-    setAwards(updatedAwards);
-    localStorage.setItem("wieAwards", JSON.stringify(updatedAwards));
-    return newAward;
+  const addAward = async (award: Omit<Award, "id">) => {
+    try {
+      const awardsCollection = collection(db, "awards");
+      const docRef = await addDoc(awardsCollection, award);
+      
+      const newAward = {
+        ...award,
+        id: docRef.id,
+      };
+      
+      setAwards([...awards, newAward]);
+      return newAward;
+    } catch (error) {
+      console.error("Error adding award:", error);
+      throw error;
+    }
   };
   
-  const updateAward = (id: string, updatedAward: Partial<Award>) => {
-    const updatedAwards = awards.map(award => 
-      award.id === id ? { ...award, ...updatedAward } : award
-    );
-    
-    setAwards(updatedAwards);
-    localStorage.setItem("wieAwards", JSON.stringify(updatedAwards));
+  const updateAward = async (id: string, updatedAward: Partial<Award>) => {
+    try {
+      const awardRef = doc(db, "awards", id);
+      await updateDoc(awardRef, updatedAward);
+      
+      const updatedAwards = awards.map(award => 
+        award.id === id ? { ...award, ...updatedAward } : award
+      );
+      
+      setAwards(updatedAwards);
+    } catch (error) {
+      console.error("Error updating award:", error);
+      throw error;
+    }
   };
   
-  const deleteAward = (id: string) => {
-    const updatedAwards = awards.filter(award => award.id !== id);
-    setAwards(updatedAwards);
-    localStorage.setItem("wieAwards", JSON.stringify(updatedAwards));
+  const deleteAward = async (id: string) => {
+    try {
+      const awardRef = doc(db, "awards", id);
+      await deleteDoc(awardRef);
+      
+      const updatedAwards = awards.filter(award => award.id !== id);
+      setAwards(updatedAwards);
+    } catch (error) {
+      console.error("Error deleting award:", error);
+      throw error;
+    }
   };
   
   return { awards, loading, addAward, updateAward, deleteAward };

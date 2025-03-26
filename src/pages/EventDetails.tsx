@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { CalendarIcon, MapPinIcon, UsersIcon, ArrowLeft } from "lucide-react";
 import Navbar from "@/components/Navbar";
+import { db } from "@/lib/firebase";
+import { doc, getDoc } from "firebase/firestore";
 
 const EventDetails = () => {
   const { id } = useParams();
@@ -13,21 +15,34 @@ const EventDetails = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Load event from localStorage
-    try {
-      const savedEvents = localStorage.getItem("wieEvents");
-      if (savedEvents) {
-        const events = JSON.parse(savedEvents);
-        const foundEvent = events.find((e: Event) => e.id === id);
-        if (foundEvent) {
-          setEvent(foundEvent);
+    const fetchEvent = async () => {
+      if (!id) return;
+      
+      try {
+        const eventRef = doc(db, "events", id);
+        const eventDoc = await getDoc(eventRef);
+        
+        if (eventDoc.exists()) {
+          const eventData = eventDoc.data();
+          setEvent({
+            id: eventDoc.id,
+            title: eventData.title || "",
+            date: eventData.date || "",
+            description: eventData.description || "",
+            location: eventData.location || "",
+            imageUrl: eventData.imageUrl || "",
+            ieeeCount: eventData.ieeeCount || 0,
+            nonIeeeCount: eventData.nonIeeeCount || 0
+          });
         }
+      } catch (error) {
+        console.error("Error fetching event:", error);
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      console.error("Error loading event:", error);
-    } finally {
-      setLoading(false);
-    }
+    };
+
+    fetchEvent();
   }, [id]);
 
   if (loading) {
