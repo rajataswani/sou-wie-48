@@ -13,7 +13,6 @@ import { Card } from "@/components/ui/card";
 import StorageInfo from "@/components/StorageInfo";
 import Navbar from "@/components/Navbar";
 
-
 const Admin = () => {
   const [isEventFormOpen, setIsEventFormOpen] = useState(false);
   const [isAwardFormOpen, setIsAwardFormOpen] = useState(false);
