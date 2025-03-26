@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -10,6 +9,7 @@ import { useEvents } from "@/hooks/useEvents";
 import { useAwards } from "@/hooks/useAwards";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
+import { Calendar as CalendarIcon, Award as AwardIcon } from "lucide-react";
 
 const Index = () => {
   const [showAdminLogin, setShowAdminLogin] = useState(false);
