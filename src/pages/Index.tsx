@@ -3,13 +3,13 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import EventCard from "@/components/EventCard";
 import AwardCard from "@/components/AwardCard";
 import AdminLogin from "@/components/AdminLogin";
 import { useEvents } from "@/hooks/useEvents";
 import { useAwards } from "@/hooks/useAwards";
 import { Link } from "react-router-dom";
+import Navbar from "@/components/Navbar";
 
 const Index = () => {
   const [showAdminLogin, setShowAdminLogin] = useState(false);
@@ -18,8 +18,10 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-50 to-white">
+      <Navbar />
+      
       {/* Hero Section */}
-      <section className="relative py-20 px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center text-center">
+      <section className="relative py-24 px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center text-center min-h-[80vh]">
         <div className="absolute inset-0 z-0 bg-[url('/wie-bg.svg')] bg-no-repeat bg-center opacity-5"></div>
         <div className="relative z-10 max-w-5xl mx-auto">
           <h1 className="text-4xl md:text-6xl font-bold text-purple-900 mb-4">
@@ -43,9 +45,9 @@ const Index = () => {
       </section>
 
       {/* About Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+      <section id="about" className="py-24 px-4 sm:px-6 lg:px-8 bg-white min-h-[80vh]">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-3xl font-bold text-center text-purple-900 mb-12">About Our Student Branch</h2>
+          <h2 className="text-3xl font-bold text-center text-purple-900 mb-12">About IEEE SOU WIE SB AG</h2>
           
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
@@ -70,6 +72,14 @@ const Index = () => {
               </CardHeader>
               <CardContent>
                 <ul className="space-y-3">
+                  <li className="flex justify-between">
+                    <span className="font-medium">Mentor and Founding Member</span>
+                    <span>Dr. Satvik Khara Sir</span>
+                  </li>
+                  <li className="flex justify-between">
+                    <span className="font-medium">Faculty Advisor</span>
+                    <span>Prof. Gaurav Tiwari Sir</span>
+                  </li>
                   <li className="flex justify-between">
                     <span className="font-medium">Chairperson</span>
                     <span>Ravina Gajipara</span>
@@ -98,7 +108,7 @@ const Index = () => {
       </section>
 
       {/* Events and Awards Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-purple-50">
+      <section id="activities" className="py-24 px-4 sm:px-6 lg:px-8 bg-purple-50 min-h-[80vh]">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-center text-purple-900 mb-12">Our Activities</h2>
           
@@ -110,19 +120,32 @@ const Index = () => {
             
             <TabsContent value="events" className="mt-2">
               {events.length > 0 ? (
-                <Carousel className="w-full max-w-5xl mx-auto">
-                  <CarouselContent>
-                    {events.map((event) => (
-                      <CarouselItem key={event.id} className="md:basis-1/2 lg:basis-1/3 p-2">
-                        <EventCard event={event} />
-                      </CarouselItem>
-                    ))}
-                  </CarouselContent>
-                  <div className="flex justify-center mt-4">
-                    <CarouselPrevious className="relative static mr-2" />
-                    <CarouselNext className="relative static ml-2" />
-                  </div>
-                </Carousel>
+                <div className="space-y-6">
+                  {events.map((event) => (
+                    <Link to={`/event/${event.id}`} key={event.id} className="block">
+                      <Card className="hover:shadow-lg transition-shadow duration-300 overflow-hidden">
+                        <div className="grid md:grid-cols-4 gap-4">
+                          <div className="aspect-video md:aspect-square md:col-span-1 overflow-hidden">
+                            <img 
+                              src={event.imageUrl} 
+                              alt={event.title} 
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                          <div className="p-4 md:col-span-3">
+                            <h3 className="text-xl font-semibold text-purple-800 mb-2">{event.title}</h3>
+                            <div className="flex items-center gap-2 text-sm text-gray-600 mb-3">
+                              <CalendarIcon className="h-4 w-4" />
+                              <span>{event.date}</span>
+                            </div>
+                            <p className="text-gray-700 line-clamp-2">{event.description}</p>
+                            <p className="text-sm text-gray-500 mt-2">{event.location}</p>
+                          </div>
+                        </div>
+                      </Card>
+                    </Link>
+                  ))}
+                </div>
               ) : (
                 <Card className="shadow-md mx-auto max-w-md">
                   <CardContent className="pt-6 text-center">
@@ -134,9 +157,29 @@ const Index = () => {
             
             <TabsContent value="awards" className="mt-2">
               {awards.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="space-y-6">
                   {awards.map((award) => (
-                    <AwardCard key={award.id} award={award} />
+                    <Link to={`/award/${award.id}`} key={award.id} className="block">
+                      <Card className="hover:shadow-lg transition-shadow duration-300 overflow-hidden">
+                        <div className="grid md:grid-cols-4 gap-4">
+                          <div className="aspect-video md:aspect-square md:col-span-1 overflow-hidden">
+                            <img 
+                              src={award.imageUrl} 
+                              alt={award.title} 
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                          <div className="p-4 md:col-span-3">
+                            <div className="flex items-center gap-2 mb-2">
+                              <AwardIcon className="h-5 w-5 text-yellow-500" />
+                              <h3 className="text-xl font-semibold text-purple-800">{award.title}</h3>
+                            </div>
+                            <p className="text-sm text-gray-600 mb-3">{award.date}</p>
+                            <p className="text-gray-700 line-clamp-2">{award.description}</p>
+                          </div>
+                        </div>
+                      </Card>
+                    </Link>
                   ))}
                 </div>
               ) : (

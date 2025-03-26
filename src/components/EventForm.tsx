@@ -20,6 +20,8 @@ const EventForm = ({ event, onSubmit, onCancel }: EventFormProps) => {
   const [location, setLocation] = useState(event?.location || "");
   const [imageUrl, setImageUrl] = useState(event?.imageUrl || "");
   const [imageFile, setImageFile] = useState<File | null>(null);
+  const [ieeeCount, setIeeeCount] = useState(event?.ieeeCount || 0);
+  const [nonIeeeCount, setNonIeeeCount] = useState(event?.nonIeeeCount || 0);
   
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,6 +37,8 @@ const EventForm = ({ event, onSubmit, onCancel }: EventFormProps) => {
           description,
           location,
           imageUrl: imageDataUrl,
+          ieeeCount,
+          nonIeeeCount
         });
       };
       reader.readAsDataURL(imageFile);
@@ -46,6 +50,8 @@ const EventForm = ({ event, onSubmit, onCancel }: EventFormProps) => {
         description,
         location,
         imageUrl: imageUrl || "/placeholder.svg",
+        ieeeCount,
+        nonIeeeCount
       });
     }
   };
@@ -110,6 +116,30 @@ const EventForm = ({ event, onSubmit, onCancel }: EventFormProps) => {
               rows={4}
               required
             />
+          </div>
+          
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="ieeeCount">IEEE Members Count</Label>
+              <Input
+                id="ieeeCount"
+                type="number"
+                min="0"
+                value={ieeeCount}
+                onChange={(e) => setIeeeCount(Number(e.target.value))}
+              />
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="nonIeeeCount">Non-IEEE Members Count</Label>
+              <Input
+                id="nonIeeeCount"
+                type="number"
+                min="0"
+                value={nonIeeeCount}
+                onChange={(e) => setNonIeeeCount(Number(e.target.value))}
+              />
+            </div>
           </div>
           
           <div className="space-y-2">

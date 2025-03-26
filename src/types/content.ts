@@ -6,6 +6,8 @@ export interface Event {
   description: string;
   location: string;
   imageUrl: string;
+  ieeeCount?: number;
+  nonIeeeCount?: number;
 }
 
 export interface Award {

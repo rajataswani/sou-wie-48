@@ -11,6 +11,7 @@ import AwardForm from "@/components/AwardForm";
 import { useNavigate } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import StorageInfo from "@/components/StorageInfo";
+import Navbar from "@/components/Navbar";
 
 const Admin = () => {
   const [isEventFormOpen, setIsEventFormOpen] = useState(false);
@@ -65,6 +66,7 @@ const Admin = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 py-12">
+      <Navbar />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8 flex justify-between items-center">
           <h1 className="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
