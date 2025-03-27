@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { type Award } from "@/types/content";
 import { db } from "@/lib/firebase";
@@ -8,6 +7,7 @@ import { toast } from "@/hooks/use-toast";
 export function useAwards() {
   const [awards, setAwards] = useState<Award[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
   
   // Convert Firestore document to Award type
   const convertDocToAward = (doc: QueryDocumentSnapshot<DocumentData>): Award => {
@@ -34,6 +34,7 @@ export function useAwards() {
         console.log("Awards loaded:", awardsList);
       } catch (error) {
         console.error("Error loading awards:", error);
+        setError(error instanceof Error ? error : new Error('Unknown error loading awards'));
         toast({
           title: "Error",
           description: "Failed to load awards. Please try again.",
@@ -129,5 +130,5 @@ export function useAwards() {
     }
   };
   
-  return { awards, loading, addAward, updateAward, deleteAward };
+  return { awards, loading, error, addAward, updateAward, deleteAward };
 }

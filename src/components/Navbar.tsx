@@ -10,6 +10,9 @@ const Navbar = () => {
   const isMobile = useIsMobile();
   const [isOpen, setIsOpen] = useState(false);
   
+  // Fallback image in case the IEEE WIE logo fails to load
+  const logoFallback = "/placeholder.svg";
+  
   const navItems = [
     { label: "Home", href: "/", isExternal: false, isScroll: false },
     { label: "About", href: "#about", isExternal: false, isScroll: true },
@@ -106,9 +109,13 @@ const Navbar = () => {
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <Link to="/" className="flex items-center">
             <img 
-              src="http://ieee.socet.edu.in/wp-content/uploads/2025/03/wie-logo.png" 
+              src="/placeholder.svg" 
               alt="IEEE WIE Logo" 
               className="h-10"
+              onError={(e) => {
+                // If image fails to load, set a fallback
+                e.currentTarget.src = logoFallback;
+              }}
             />
           </Link>
           <ul className="flex items-center gap-x-6 text-sm font-medium text-white">

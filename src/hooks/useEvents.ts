@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { type Event } from "@/types/content";
 import { db } from "@/lib/firebase";
@@ -8,6 +7,7 @@ import { toast } from "@/hooks/use-toast";
 export function useEvents() {
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
   
   // Convert Firestore document to Event type
   const convertDocToEvent = (doc: QueryDocumentSnapshot<DocumentData>): Event => {
@@ -37,6 +37,7 @@ export function useEvents() {
         console.log("Events loaded:", eventsList);
       } catch (error) {
         console.error("Error loading events:", error);
+        setError(error instanceof Error ? error : new Error('Unknown error loading events'));
         toast({
           title: "Error",
           description: "Failed to load events. Please try again.",
@@ -132,5 +133,5 @@ export function useEvents() {
     }
   };
   
-  return { events, loading, addEvent, updateEvent, deleteEvent };
+  return { events, loading, error, addEvent, updateEvent, deleteEvent };
 }
