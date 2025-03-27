@@ -26,17 +26,16 @@ const queryClient = new QueryClient({
   }
 });
 
-// Set up global error handling for React Query
-queryClient.setDefaultOptions({
-  queries: {
-    onError: (error) => {
-      console.error("Query error:", error);
-    }
-  },
-  mutations: {
-    onError: (error) => {
-      console.error("Mutation error:", error);
-    }
+// Set up a listener for errors
+queryClient.getQueryCache().subscribe({
+  onError: (error) => {
+    console.error("Query cache error:", error);
+  }
+});
+
+queryClient.getMutationCache().subscribe({
+  onError: (error) => {
+    console.error("Mutation cache error:", error);
   }
 });
 
