@@ -26,16 +26,16 @@ const queryClient = new QueryClient({
   }
 });
 
-// Set up a listener for errors using the correct function syntax
+// Handle query errors using the correct event types for React Query v5
 queryClient.getQueryCache().subscribe((event) => {
-  if (event.type === 'error' && event.error) {
-    console.error("Query cache error:", event.error);
+  if (event.type === 'observerResultsUpdated' && event.query.state.error) {
+    console.error("Query cache error:", event.query.state.error);
   }
 });
 
 queryClient.getMutationCache().subscribe((event) => {
-  if (event.type === 'error' && event.error) {
-    console.error("Mutation cache error:", event.error);
+  if (event.type === 'observerResultsUpdated' && event.mutation?.state.error) {
+    console.error("Mutation cache error:", event.mutation.state.error);
   }
 });
 
