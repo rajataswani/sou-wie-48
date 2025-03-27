@@ -13,7 +13,7 @@ const Navbar = () => {
   const navItems = [
     { label: "Home", href: "/", isExternal: false, isScroll: false },
     { label: "About", href: "#about", isExternal: false, isScroll: true },
-    { label: "Activities", href: "#activities", isExternal: false, isScroll: true },
+    { label: "Events & Awards", href: "#activities", isExternal: false, isScroll: true },
     { label: "IEEE WIE", href: "https://wie.ieee.org/", isExternal: true, isScroll: false },
     { label: "Learn More", href: "/learn-more", isExternal: false, isScroll: false },
     { label: "Join Us", href: "https://ieee.socet.edu.in/contact/", isExternal: true, isScroll: false },
