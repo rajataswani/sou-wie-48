@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { Facebook, Twitter, Instagram, Youtube, Linkedin, ChevronDown } from "lucide-react";
+import { Facebook, X, Instagram, Youtube, Linkedin, ChevronDown } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { 
   DropdownMenu, 
@@ -23,14 +23,14 @@ const BlackNavbar = () => {
   
   const socialLinks = [
     { icon: Facebook, href: "https://www.facebook.com/ieeewomeninengineering/" },
-    { icon: Twitter, href: "https://twitter.com/ieeewie" },
+    { icon: X, href: "https://twitter.com/ieeewie" },
     { icon: Instagram, href: "https://www.instagram.com/ieeewomeninengineering/" },
     { icon: Youtube, href: "https://www.youtube.com/channel/UClrcXvuwAbpdE6o9NUXaLxA" },
     { icon: Linkedin, href: "https://www.linkedin.com/groups/7426706/profile" }
   ];
   
   return (
-    <nav className="w-full bg-black text-white py-1 px-4 sticky top-0 z-50">
+    <nav className="w-full bg-black text-white py-1 px-4 fixed top-0 z-50">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center">
         {isMobile ? (
           <div className="w-full flex flex-col items-center gap-3 py-2">
