@@ -79,7 +79,7 @@ const Index = () => {
                 <div className="mb-4">
                   <div className="flex justify-between">
                     <span className="font-medium">Mentor and Founding Member</span>
-                    <span>Dr. Satvik Khara Sir</span>
+                    <span>Dr. Satvik Khara</span>
                   </div>
                 </div>
 
@@ -89,7 +89,7 @@ const Index = () => {
                 <div className="mb-4">
                   <div className="flex justify-between">
                     <span className="font-medium">Faculty Advisor</span>
-                    <span>Prof. Gaurav Tiwari Sir</span>
+                    <span>Prof. Gaurav Tiwari</span>
                   </div>
                 </div>
 
