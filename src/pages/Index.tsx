@@ -130,7 +130,7 @@ const Index = () => {
       {/* Events and Awards Section */}
       <section id="activities" className="py-24 px-4 sm:px-6 lg:px-8 bg-purple-50 min-h-[80vh]">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-center text-purple-900 mb-12">Our Activities</h2>
+          <h2 className="text-3xl font-bold text-center text-purple-900 mb-12">Events & Awards</h2>
           
           <Tabs defaultValue="events" className="w-full">
             <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 mb-8">
