@@ -10,6 +10,8 @@ const Navbar = () => {
   const isMobile = useIsMobile();
   const [isOpen, setIsOpen] = useState(false);
   
+  // IEEE WIE logo
+  const logoUrl = "https://brand-experience.ieee.org/wp-content/uploads/2019/01/WIE_purple_stacked.png";
   // Fallback image in case the IEEE WIE logo fails to load
   const logoFallback = "/placeholder.svg";
   
@@ -109,7 +111,7 @@ const Navbar = () => {
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <Link to="/" className="flex items-center">
             <img 
-              src="/placeholder.svg" 
+              src={logoUrl} 
               alt="IEEE WIE Logo" 
               className="h-10"
               onError={(e) => {
