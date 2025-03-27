@@ -106,7 +106,7 @@ const Navbar = () => {
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <Link to="/" className="flex items-center">
             <img 
-              src="http://ieee.socet.edu.in/wp-content/uploads/2025/03/wie-logo.png" 
+              src="http://ieee.socet.edu.in/wp-content/uploads/2025/03/WIE-LOGO-2.png" 
               alt="IEEE WIE Logo" 
               className="h-10"
             />
