@@ -10,11 +10,6 @@ const Navbar = () => {
   const isMobile = useIsMobile();
   const [isOpen, setIsOpen] = useState(false);
   
-  // IEEE WIE logo
-  const logoUrl = "https://brand-experience.ieee.org/wp-content/uploads/2019/01/WIE_purple_stacked.png";
-  // Fallback image in case the IEEE WIE logo fails to load
-  const logoFallback = "/placeholder.svg";
-  
   const navItems = [
     { label: "Home", href: "/", isExternal: false, isScroll: false },
     { label: "About", href: "#about", isExternal: false, isScroll: true },
@@ -72,7 +67,7 @@ const Navbar = () => {
   );
   
   return (
-    <nav className={`sticky ${isMobile ? 'top-16 max-w-3xl mx-auto bg-white/90 backdrop-blur-sm shadow-sm rounded-full z-40' : 'top-8 bg-purple-800 text-white z-40'} w-full my-6 py-3 px-4`}>
+    <nav className={`relative w-full ${isMobile ? 'max-w-3xl mx-auto bg-white/90 backdrop-blur-sm shadow-sm rounded-full' : 'bg-purple-800 text-white'} my-6 py-3 px-4`}>
       {isMobile ? (
         <div className="flex items-center justify-between">
           <Link to="/" className="text-purple-800 font-semibold">IEEE WIE SOU</Link>
@@ -111,13 +106,9 @@ const Navbar = () => {
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <Link to="/" className="flex items-center">
             <img 
-              src={logoUrl} 
+              src="http://ieee.socet.edu.in/wp-content/uploads/2025/03/wie-logo.png" 
               alt="IEEE WIE Logo" 
               className="h-10"
-              onError={(e) => {
-                // If image fails to load, set a fallback
-                e.currentTarget.src = logoFallback;
-              }}
             />
           </Link>
           <ul className="flex items-center gap-x-6 text-sm font-medium text-white">

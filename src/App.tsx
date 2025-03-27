@@ -13,32 +13,7 @@ import EventDetails from "./pages/EventDetails";
 import AwardDetails from "./pages/AwardDetails";
 import BlackNavbar from "./components/BlackNavbar";
 
-// Create a client for React Query with better error handling
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: 1,
-      refetchOnWindowFocus: false,
-    },
-    mutations: {
-      retry: 1,
-    }
-  }
-});
-
-// Handle query errors using the correct event types for React Query v5
-queryClient.getQueryCache().subscribe((event) => {
-  if (event.type === 'observerResultsUpdated' && event.query.state.status === 'error') {
-    console.error("Query cache error:", event.query.state.error);
-  }
-});
-
-// Different event handling for mutation cache
-queryClient.getMutationCache().subscribe((event) => {
-  if (event.type === 'updated' && event.mutation.state.status === 'error') {
-    console.error("Mutation cache error:", event.mutation.state.error);
-  }
-});
+const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>

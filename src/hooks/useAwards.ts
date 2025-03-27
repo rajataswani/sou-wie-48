@@ -8,7 +8,6 @@ import { toast } from "@/hooks/use-toast";
 export function useAwards() {
   const [awards, setAwards] = useState<Award[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
   
   // Convert Firestore document to Award type
   const convertDocToAward = (doc: QueryDocumentSnapshot<DocumentData>): Award => {
@@ -35,33 +34,11 @@ export function useAwards() {
         console.log("Awards loaded:", awardsList);
       } catch (error) {
         console.error("Error loading awards:", error);
-        setError(error instanceof Error ? error : new Error('Unknown error loading awards'));
         toast({
           title: "Error",
           description: "Failed to load awards. Please try again.",
           variant: "destructive"
         });
-        
-        // If in development, add sample awards
-        if (process.env.NODE_ENV === 'development') {
-          console.log("Adding sample awards in development mode");
-          setAwards([
-            {
-              id: "sample1",
-              title: "Best Student Branch Award",
-              date: "2023",
-              description: "IEEE WIE Silver Oak University recognized as the Best Student Branch in Gujarat Section.",
-              imageUrl: "/placeholder.svg"
-            },
-            {
-              id: "sample2",
-              title: "Outstanding Leadership Award",
-              date: "2022",
-              description: "Recognition for exceptional leadership in promoting women in engineering fields.",
-              imageUrl: "/placeholder.svg"
-            }
-          ]);
-        }
       } finally {
         setLoading(false);
       }
@@ -152,5 +129,5 @@ export function useAwards() {
     }
   };
   
-  return { awards, loading, error, addAward, updateAward, deleteAward };
+  return { awards, loading, addAward, updateAward, deleteAward };
 }

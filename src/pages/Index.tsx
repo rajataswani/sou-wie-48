@@ -10,47 +10,13 @@ import { useEvents } from "@/hooks/useEvents";
 import { useAwards } from "@/hooks/useAwards";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
-import { Calendar as CalendarIcon, Award as AwardIcon, AlertCircle } from "lucide-react";
+import { Calendar as CalendarIcon, Award as AwardIcon } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
-import { Skeleton } from "@/components/ui/skeleton";
 
 const Index = () => {
   const [showAdminLogin, setShowAdminLogin] = useState(false);
-  const { events, loading: eventsLoading, error: eventsError } = useEvents();
-  const { awards, loading: awardsLoading, error: awardsError } = useAwards();
-
-  // Function to render loading skeletons
-  const renderSkeletons = (count = 3) => {
-    return Array(count).fill(0).map((_, index) => (
-      <Card key={index} className="w-full">
-        <div className="aspect-video w-full bg-gray-200 animate-pulse" />
-        <CardHeader>
-          <Skeleton className="h-5 w-2/3" />
-          <Skeleton className="h-4 w-1/3" />
-        </CardHeader>
-        <CardContent>
-          <Skeleton className="h-4 w-full" />
-          <Skeleton className="h-4 w-4/5 mt-2" />
-        </CardContent>
-      </Card>
-    ));
-  };
-
-  // Function to render error state
-  const renderError = (message) => {
-    return (
-      <Card className="w-full">
-        <CardContent className="flex flex-col items-center justify-center p-6 text-center">
-          <AlertCircle className="h-10 w-10 text-red-500 mb-2" />
-          <h3 className="text-lg font-medium text-red-600">Error Loading Data</h3>
-          <p className="text-sm text-gray-500 mt-1">{message}</p>
-          <Button variant="outline" className="mt-4" onClick={() => window.location.reload()}>
-            Retry
-          </Button>
-        </CardContent>
-      </Card>
-    );
-  };
+  const { events } = useEvents();
+  const { awards } = useAwards();
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-50 to-white">
@@ -173,13 +139,7 @@ const Index = () => {
             </TabsList>
             
             <TabsContent value="events" className="mt-2">
-              {eventsError ? (
-                renderError("Could not load events. Please try again later.")
-              ) : eventsLoading ? (
-                <div className="space-y-6">
-                  {renderSkeletons()}
-                </div>
-              ) : events.length > 0 ? (
+              {events.length > 0 ? (
                 <div className="space-y-6">
                   {events.map((event) => (
                     <Link to={`/event/${event.id}`} key={event.id} className="block">
@@ -187,12 +147,9 @@ const Index = () => {
                         <div className="grid md:grid-cols-4 gap-4">
                           <div className="aspect-video md:aspect-square md:col-span-1 overflow-hidden">
                             <img 
-                              src={event.imageUrl || "/placeholder.svg"} 
+                              src={event.imageUrl} 
                               alt={event.title} 
                               className="w-full h-full object-cover"
-                              onError={(e) => {
-                                e.currentTarget.src = "/placeholder.svg";
-                              }}
                             />
                           </div>
                           <div className="p-4 md:col-span-3">
@@ -219,13 +176,7 @@ const Index = () => {
             </TabsContent>
             
             <TabsContent value="awards" className="mt-2">
-              {awardsError ? (
-                renderError("Could not load awards. Please try again later.")
-              ) : awardsLoading ? (
-                <div className="space-y-6">
-                  {renderSkeletons()}
-                </div>
-              ) : awards.length > 0 ? (
+              {awards.length > 0 ? (
                 <div className="space-y-6">
                   {awards.map((award) => (
                     <Link to={`/award/${award.id}`} key={award.id} className="block">
@@ -233,12 +184,9 @@ const Index = () => {
                         <div className="grid md:grid-cols-4 gap-4">
                           <div className="aspect-video md:aspect-square md:col-span-1 overflow-hidden">
                             <img 
-                              src={award.imageUrl || "/placeholder.svg"} 
+                              src={award.imageUrl} 
                               alt={award.title} 
                               className="w-full h-full object-cover"
-                              onError={(e) => {
-                                e.currentTarget.src = "/placeholder.svg";
-                              }}
                             />
                           </div>
                           <div className="p-4 md:col-span-3">

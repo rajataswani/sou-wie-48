@@ -8,7 +8,6 @@ import { toast } from "@/hooks/use-toast";
 export function useEvents() {
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
   
   // Convert Firestore document to Event type
   const convertDocToEvent = (doc: QueryDocumentSnapshot<DocumentData>): Event => {
@@ -38,39 +37,11 @@ export function useEvents() {
         console.log("Events loaded:", eventsList);
       } catch (error) {
         console.error("Error loading events:", error);
-        setError(error instanceof Error ? error : new Error('Unknown error loading events'));
         toast({
           title: "Error",
           description: "Failed to load events. Please try again.",
           variant: "destructive"
         });
-        
-        // If in development, add sample events
-        if (process.env.NODE_ENV === 'development') {
-          console.log("Adding sample events in development mode");
-          setEvents([
-            {
-              id: "sample1",
-              title: "Sample IEEE WIE Workshop",
-              date: "2023-10-15",
-              description: "A workshop on leadership and technical skills for women in engineering.",
-              location: "Silver Oak University, Ahmedabad",
-              imageUrl: "/placeholder.svg",
-              ieeeCount: 25,
-              nonIeeeCount: 15
-            },
-            {
-              id: "sample2",
-              title: "Tech Talk: Women in AI",
-              date: "2023-11-20",
-              description: "Panel discussion with leading women in artificial intelligence and machine learning.",
-              location: "Online Webinar",
-              imageUrl: "/placeholder.svg",
-              ieeeCount: 40,
-              nonIeeeCount: 30
-            }
-          ]);
-        }
       } finally {
         setLoading(false);
       }
@@ -161,5 +132,5 @@ export function useEvents() {
     }
   };
   
-  return { events, loading, error, addEvent, updateEvent, deleteEvent };
+  return { events, loading, addEvent, updateEvent, deleteEvent };
 }

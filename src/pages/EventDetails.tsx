@@ -4,29 +4,25 @@ import { useEffect, useState } from "react";
 import { type Event } from "@/types/content";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { CalendarIcon, MapPinIcon, UsersIcon, ArrowLeft, AlertCircle } from "lucide-react";
+import { CalendarIcon, MapPinIcon, UsersIcon, ArrowLeft } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import { db } from "@/lib/firebase";
 import { doc, getDoc } from "firebase/firestore";
-import { Skeleton } from "@/components/ui/skeleton";
 
 const EventDetails = () => {
   const { id } = useParams();
   const [event, setEvent] = useState<Event | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
     const fetchEvent = async () => {
       if (!id) return;
       
       try {
-        console.log("Fetching event with ID:", id);
         const eventRef = doc(db, "events", id);
         const eventDoc = await getDoc(eventRef);
         
         if (eventDoc.exists()) {
-          console.log("Event document found:", eventDoc.id);
           const eventData = eventDoc.data();
           setEvent({
             id: eventDoc.id,
@@ -38,13 +34,9 @@ const EventDetails = () => {
             ieeeCount: eventData.ieeeCount || 0,
             nonIeeeCount: eventData.nonIeeeCount || 0
           });
-        } else {
-          console.log("No event document found with ID:", id);
-          setError(new Error("Event not found"));
         }
       } catch (error) {
         console.error("Error fetching event:", error);
-        setError(error instanceof Error ? error : new Error("Failed to load event"));
       } finally {
         setLoading(false);
       }
@@ -55,42 +47,19 @@ const EventDetails = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-purple-50 to-white">
-        <Navbar />
-        <div className="max-w-4xl mx-auto pt-8 px-4 pb-16">
-          <Skeleton className="h-8 w-32 mb-6" />
-          <Skeleton className="w-full h-[300px] rounded-lg mb-8" />
-          <Skeleton className="h-10 w-2/3 mb-4" />
-          <div className="flex flex-wrap gap-4 mb-6">
-            <Skeleton className="h-6 w-32" />
-            <Skeleton className="h-6 w-40" />
-          </div>
-          <div className="grid md:grid-cols-3 gap-6 mb-8">
-            {[1, 2, 3].map(i => (
-              <Skeleton key={i} className="h-40 rounded-md" />
-            ))}
-          </div>
-          <Skeleton className="h-8 w-40 mb-4" />
-          <Skeleton className="h-4 w-full mb-2" />
-          <Skeleton className="h-4 w-full mb-2" />
-          <Skeleton className="h-4 w-2/3" />
-        </div>
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-purple-700">Loading event details...</p>
       </div>
     );
   }
 
-  if (error || !event) {
+  if (!event) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-purple-50 to-white">
-        <Navbar />
-        <div className="max-w-4xl mx-auto pt-16 px-4 pb-16 flex flex-col items-center justify-center">
-          <AlertCircle className="h-16 w-16 text-red-500 mb-4" />
-          <h1 className="text-2xl font-bold text-purple-900 mb-4">Event Not Found</h1>
-          <p className="text-gray-600 mb-6">The event you're looking for doesn't seem to exist or there was an error loading it.</p>
-          <Button asChild>
-            <Link to="/">Back to Home</Link>
-          </Button>
-        </div>
+      <div className="min-h-screen flex flex-col items-center justify-center">
+        <h1 className="text-2xl font-bold text-purple-900 mb-4">Event Not Found</h1>
+        <Button asChild>
+          <Link to="/">Back to Home</Link>
+        </Button>
       </div>
     );
   }
@@ -109,12 +78,9 @@ const EventDetails = () => {
         
         <div className="aspect-video w-full overflow-hidden rounded-lg mb-8">
           <img 
-            src={event.imageUrl || "/placeholder.svg"} 
+            src={event.imageUrl} 
             alt={event.title} 
             className="w-full h-full object-cover"
-            onError={(e) => {
-              e.currentTarget.src = "/placeholder.svg";
-            }}
           />
         </div>
         
