@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Facebook, Twitter, Instagram, Youtube, Linkedin, ChevronDown } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -30,13 +29,13 @@ const BlackNavbar = () => {
   ];
   
   return (
-    <nav className="w-full bg-black text-white py-1 px-4 sticky top-0 z-50">
+    <nav className="w-full bg-[#f2e9f2] text-[#7f2c82] py-1 px-4 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center">
         {isMobile ? (
           <div className="w-full flex flex-col items-center gap-3 py-2">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="text-white hover:bg-gray-800">
+                <Button variant="ghost" className="text-[#7f2c82] hover:bg-gray-200">
                   IEEE Menu <ChevronDown className="ml-1 h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
@@ -47,7 +46,7 @@ const BlackNavbar = () => {
                       href={link.href} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="cursor-pointer"
+                      className="cursor-pointer text-[#7f2c82] hover:text-[#5a1e5d]"
                     >
                       {link.label}
                     </a>
@@ -63,7 +62,7 @@ const BlackNavbar = () => {
                   href={link.href} 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="text-white hover:text-gray-300"
+                  className="text-[#7f2c82] hover:text-[#5a1e5d]"
                 >
                   <link.icon size={16} />
                 </a>
@@ -90,7 +89,7 @@ const BlackNavbar = () => {
                     href={link.href} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="text-white hover:text-gray-300"
+                    className="text-[#7f2c82] hover:text-[#5a1e5d]"
                   >
                     {link.label}
                   </a>
@@ -106,7 +105,7 @@ const BlackNavbar = () => {
                     href={link.href} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="text-white hover:text-gray-300"
+                    className="text-[#7f2c82] hover:text-[#5a1e5d]"
                   >
                     <link.icon size={16} />
                   </a>
