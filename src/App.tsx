@@ -26,18 +26,26 @@ const queryClient = new QueryClient({
   }
 });
 
-// Set up a listener for errors
-queryClient.getQueryCache().subscribe({
-  onError: (error) => {
-    console.error("Query cache error:", error);
+// Set up a listener for errors using the correct event structure
+queryClient.getQueryCache().subscribe(
+  {
+    onSettled: (data, error) => {
+      if (error) {
+        console.error("Query cache error:", error);
+      }
+    }
   }
-});
+);
 
-queryClient.getMutationCache().subscribe({
-  onError: (error) => {
-    console.error("Mutation cache error:", error);
+queryClient.getMutationCache().subscribe(
+  {
+    onSettled: (data, error, variables, context) => {
+      if (error) {
+        console.error("Mutation cache error:", error);
+      }
+    }
   }
-});
+);
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
