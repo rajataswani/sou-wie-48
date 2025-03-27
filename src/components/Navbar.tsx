@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ExternalLink, Menu, X } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -67,7 +67,7 @@ const Navbar = () => {
   );
   
   return (
-    <nav className="relative w-full max-w-3xl mx-auto bg-white/90 backdrop-blur-sm shadow-sm rounded-full my-6 py-3 px-4">
+    <nav className={`relative w-full ${isMobile ? 'max-w-3xl mx-auto bg-white/90 backdrop-blur-sm shadow-sm rounded-full' : 'bg-purple-800 text-white'} my-6 py-3 px-4`}>
       {isMobile ? (
         <div className="flex items-center justify-between">
           <Link to="/" className="text-purple-800 font-semibold">IEEE WIE SOU</Link>
@@ -103,9 +103,18 @@ const Navbar = () => {
           </Sheet>
         </div>
       ) : (
-        <ul className="flex items-center justify-between gap-x-2 text-sm font-medium text-purple-800">
-          {navItems.map(renderNavItem)}
-        </ul>
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          <Link to="/" className="flex items-center">
+            <img 
+              src="http://ieee.socet.edu.in/wp-content/uploads/2025/03/wie-logo.png" 
+              alt="IEEE WIE Logo" 
+              className="h-10"
+            />
+          </Link>
+          <ul className="flex items-center gap-x-6 text-sm font-medium text-white">
+            {navItems.map(renderNavItem)}
+          </ul>
+        </div>
       )}
     </nav>
   );

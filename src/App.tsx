@@ -11,6 +11,7 @@ import LearnMore from "./pages/LearnMore";
 import JoinUs from "./pages/JoinUs";
 import EventDetails from "./pages/EventDetails";
 import AwardDetails from "./pages/AwardDetails";
+import BlackNavbar from "./components/BlackNavbar";
 
 const queryClient = new QueryClient();
 
@@ -20,6 +21,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <Router>
+        <BlackNavbar />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/admin" element={<Admin />} />
