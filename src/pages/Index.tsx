@@ -29,10 +29,10 @@ const Index = () => {
         <div className="absolute inset-0 z-0 bg-[url('/wie-bg.svg')] bg-no-repeat bg-center opacity-5"></div>
         <div className="relative z-10 max-w-5xl mx-auto">
           <h1 className="text-4xl md:text-6xl font-bold text-purple-900 mb-4">
-            IEEE Women in Engineering
+            Silver Oak University 
           </h1>
           <h2 className="text-2xl md:text-3xl font-semibold text-purple-700 mb-6">
-            Silver Oak University Student Branch Affinity Group
+             IEEE Women in Engineering Student Branch Affinity Group
           </h2>
           <p className="text-lg md:text-xl text-gray-700 max-w-3xl mx-auto mb-8">
             Empowering women in engineering and technology through leadership, collaboration, and innovation
