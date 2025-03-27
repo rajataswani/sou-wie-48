@@ -14,7 +14,7 @@ const LearnMore = () => {
         >
           <Link to="/">
             <ArrowLeft className="h-4 w-4" />
-            Back to Home
+            Back to Home 
           </Link>
         </Button>
 
