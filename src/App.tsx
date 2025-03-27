@@ -23,12 +23,19 @@ const queryClient = new QueryClient({
     mutations: {
       retry: 1,
     }
+  }
+});
+
+// Set up global error handling for React Query
+queryClient.setDefaultOptions({
+  queries: {
+    onError: (error) => {
+      console.error("Query error:", error);
+    }
   },
-  logger: {
-    log: console.log,
-    warn: console.warn,
-    error: (...args) => {
-      console.error("Query error:", ...args);
+  mutations: {
+    onError: (error) => {
+      console.error("Mutation error:", error);
     }
   }
 });
