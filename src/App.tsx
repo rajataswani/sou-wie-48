@@ -33,8 +33,9 @@ queryClient.getQueryCache().subscribe((event) => {
   }
 });
 
+// Different event handling for mutation cache
 queryClient.getMutationCache().subscribe((event) => {
-  if (event.type === 'observerResultsUpdated' && event.mutation?.state.error) {
+  if (event.type === 'updated' && event.mutation.state.error) {
     console.error("Mutation cache error:", event.mutation.state.error);
   }
 });
