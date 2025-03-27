@@ -35,7 +35,7 @@ const BlackNavbar = () => {
           <div className="w-full flex flex-col items-center gap-3 py-2">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="text-[#7f2c82] hover:bg-gray-200">
+                <Button variant="ghost" className="text-[#7f2c82] hover:bg-gray-200 font-bold">
                   IEEE Menu <ChevronDown className="ml-1 h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
@@ -46,7 +46,7 @@ const BlackNavbar = () => {
                       href={link.href} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="cursor-pointer text-[#7f2c82] hover:text-[#5a1e5d]"
+                      className="cursor-pointer text-[#7f2c82] hover:text-[#5a1e5d] font-bold"
                     >
                       {link.label}
                     </a>
@@ -62,7 +62,7 @@ const BlackNavbar = () => {
                   href={link.href} 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="text-[#7f2c82] hover:text-[#5a1e5d]"
+                  className="text-[#7f2c82] hover:text-[#5a1e5d] font-bold"
                 >
                   <link.icon size={16} />
                 </a>
@@ -75,21 +75,21 @@ const BlackNavbar = () => {
               rel="noopener noreferrer"
               className="py-2"
             >
-              <Button className="bg-green-600 hover:bg-green-700 text-white">
+              <Button className="bg-green-600 hover:bg-green-700 text-white font-bold">
                 WIE Global Network
               </Button>
             </a>
           </div>
         ) : (
           <>
-            <ul className="flex gap-4 text-xs">
+            <ul className="flex gap-4 text-xs font-bold">
               {ieeeLinks.map((link, index) => (
                 <li key={index}>
                   <a 
                     href={link.href} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="text-[#7f2c82] hover:text-[#5a1e5d]"
+                    className="text-[#7f2c82] hover:text-[#5a1e5d] font-bold"
                   >
                     {link.label}
                   </a>
@@ -105,7 +105,7 @@ const BlackNavbar = () => {
                     href={link.href} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="text-[#7f2c82] hover:text-[#5a1e5d]"
+                    className="text-[#7f2c82] hover:text-[#5a1e5d] font-bold"
                   >
                     <link.icon size={16} />
                   </a>
@@ -117,7 +117,7 @@ const BlackNavbar = () => {
                 target="_blank" 
                 rel="noopener noreferrer"
               >
-                <Button className="bg-green-600 hover:bg-green-700 text-white text-xs py-1 px-3 h-auto">
+                <Button className="bg-green-600 hover:bg-green-700 text-white text-xs py-1 px-3 h-auto font-bold">
                   WIE Global Network
                 </Button>
               </a>
