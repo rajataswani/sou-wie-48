@@ -13,7 +13,24 @@ import EventDetails from "./pages/EventDetails";
 import AwardDetails from "./pages/AwardDetails";
 import BlackNavbar from "./components/BlackNavbar";
 
-const queryClient = new QueryClient();
+// Create a client for React Query with better error handling
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 1,
+      refetchOnWindowFocus: false,
+      onError: (error) => {
+        console.error("Query error:", error);
+      }
+    },
+    mutations: {
+      retry: 1,
+      onError: (error) => {
+        console.error("Mutation error:", error);
+      }
+    }
+  }
+});
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
