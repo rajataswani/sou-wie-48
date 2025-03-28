@@ -1,4 +1,5 @@
 
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -16,27 +17,27 @@ const AdminLogin = ({ onClose }: AdminLoginProps) => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  // const handleLogin = (e: React.FormEvent) => {
-  //   e.preventDefault();
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
     
     // This is a simple authentication for demo purposes
-    // In a real app, you would want to implement proper authentication, added .env process to avoid hardcoded password s
-    const ADMIN_USERNAME = import.meta.env.VITE_ADMIN_USERNAME;
-    const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD;
-    
-    const handleLogin = (e: React.FormEvent) => {
-      e.preventDefault();
-    
-      if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
-        localStorage.setItem("isAdminLoggedIn", "true");
-        toast({ title: "Login successful", description: "Welcome to the admin dashboard" });
-        navigate("/admin");
-        onClose();
-      } else {
-        toast({ title: "Login failed", description: "Invalid username or password", variant: "destructive" });
-      }
-    };
-    
+    // In a real app, you would want to implement proper authentication
+    if (username === "admin" && password === "wie2024") {
+      localStorage.setItem("isAdminLoggedIn", "true");
+      toast({
+        title: "Login successful",
+        description: "Welcome to the admin dashboard",
+      });
+      navigate("/admin");
+      onClose();
+    } else {
+      toast({
+        title: "Login failed",
+        description: "Invalid username or password",
+        variant: "destructive",
+      });
+    }
+  };
 
   return (
     <Dialog open={true} onOpenChange={onClose}>
