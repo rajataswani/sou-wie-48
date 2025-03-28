@@ -18,7 +18,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-50 to-white">
-      <div className="pt-24">
+      <div className="pt-36">
         {/* No Navbar here anymore as it's now in App.tsx */}
       </div>
       

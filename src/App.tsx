@@ -24,7 +24,9 @@ const App = () => (
       <Router>
         <div className="relative">
           <BlackNavbar />
-          <Navbar />
+          <div className="pt-10">
+            <Navbar />
+          </div>
         </div>
         <Routes>
           <Route path="/" element={<Index />} />
