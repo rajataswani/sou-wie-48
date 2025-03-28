@@ -1,3 +1,6 @@
+navbar.tsx
+
+
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ExternalLink, Menu, X } from "lucide-react";
@@ -102,7 +105,6 @@ const Navbar = () => {
                 <div className="p-4 border-b">
                   <div className="flex items-center justify-between">
                     <h2 className="text-lg font-semibold text-purple-800">Menu</h2>
-                    {/* Only this close button remains */}
                     <Button 
                       variant="ghost" 
                       size="icon" 
