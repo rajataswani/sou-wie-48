@@ -108,7 +108,7 @@ const Navbar = () => {
             <img 
               src="http://ieee.socet.edu.in/wp-content/uploads/2025/03/WIE-LOGO-2.png" 
               alt="IEEE WIE Logo" 
-              className="h-16"
+              className="h-20"
             />
           </Link>
           <ul className="flex items-center gap-x-6 text-sm font-medium text-white">
