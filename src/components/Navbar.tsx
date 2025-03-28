@@ -1,6 +1,3 @@
-navbar.tsx
-
-
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ExternalLink, Menu, X } from "lucide-react";
