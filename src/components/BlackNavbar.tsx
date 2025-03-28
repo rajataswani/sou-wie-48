@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Facebook, Twitter, Instagram, Youtube, Linkedin, ChevronDown } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { 
@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 
 const BlackNavbar = () => {
   const isMobile = useIsMobile();
+  const [scrollPosition, setScrollPosition] = useState(0);
   
   const ieeeLinks = [
     { label: "IEEE.org", href: "https://www.ieee.org/" },
@@ -29,8 +30,26 @@ const BlackNavbar = () => {
     { icon: Linkedin, href: "https://www.linkedin.com/groups/7426706/profile" }
   ];
   
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollPosition(window.scrollY);
+    };
+    
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+  
+  // Calculate the BlackNavbar's position based on scroll
+  const blackNavbarPosition = scrollPosition > 0 ? -100 : 0;
+  
   return (
-    <nav className="w-full bg-[#f2e9f2] text-[#7f2c82] py-1 px-4 border-t border-b border-black fixed top-0 left-0 right-0 z-30">
+    <nav 
+      className="w-full bg-[#f2e9f2] text-[#7f2c82] py-1 px-4 border-t border-b border-black absolute top-0 left-0 right-0 z-30"
+      style={{
+        transform: `translateY(${blackNavbarPosition}px)`,
+        transition: 'transform 0.3s ease-in-out'
+      }}
+    >
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center">
         {isMobile ? (
           <div className="w-full flex flex-col items-center gap-3 py-2">

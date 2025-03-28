@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ExternalLink, Menu, X } from "lucide-react";
@@ -75,7 +74,6 @@ const Navbar = () => {
     </li>
   );
   
-  // Calculate the navbar's position based on scroll
   const navbarPosition = scrollPosition > 50 ? 0 : isMobile ? 30 : 40;
   
   return (
