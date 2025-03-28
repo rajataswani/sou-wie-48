@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Facebook, Twitter, Instagram, Youtube, Linkedin, ChevronDown } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -44,7 +43,7 @@ const BlackNavbar = () => {
   
   return (
     <nav 
-      className="w-full bg-[#f2e9f2] text-[#7f2c82] py-1 px-4 border-t border-b border-black absolute top-0 left-0 right-0 z-30"
+      className={`w-full bg-[#f2e9f2] text-[#7f2c82] px-4 border-t border-b border-black absolute top-0 left-0 right-0 z-30 ${isMobile ? 'py-0.5' : 'py-1'}`}
       style={{
         transform: `translateY(${blackNavbarPosition}px)`,
         transition: 'transform 0.3s ease-in-out'
@@ -52,11 +51,11 @@ const BlackNavbar = () => {
     >
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center">
         {isMobile ? (
-          <div className="w-full flex flex-col items-center gap-3 py-2">
+          <div className="w-full flex flex-col items-center gap-2 py-1">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="text-[#7f2c82] hover:bg-gray-200 font-bold">
-                  IEEE Menu <ChevronDown className="ml-1 h-4 w-4" />
+                <Button variant="ghost" className="text-[#7f2c82] hover:bg-gray-200 font-bold text-xs h-7">
+                  IEEE Menu <ChevronDown className="ml-1 h-3 w-3" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
@@ -75,7 +74,7 @@ const BlackNavbar = () => {
               </DropdownMenuContent>
             </DropdownMenu>
             
-            <div className="flex gap-4 py-2">
+            <div className="flex gap-4 py-1">
               {socialLinks.map((link, index) => (
                 <a 
                   key={index}
@@ -84,7 +83,7 @@ const BlackNavbar = () => {
                   rel="noopener noreferrer"
                   className="text-[#7f2c82] hover:text-[#5a1e5d] font-bold"
                 >
-                  <link.icon size={16} />
+                  <link.icon size={14} />
                 </a>
               ))}
             </div>
@@ -93,9 +92,9 @@ const BlackNavbar = () => {
               href="https://ieee-collabratec.ieee.org/app/community/35/wie-global-network/activities"
               target="_blank" 
               rel="noopener noreferrer"
-              className="py-2"
+              className="py-1"
             >
-              <Button className="bg-green-600 hover:bg-green-700 text-white font-bold">
+              <Button className="bg-green-600 hover:bg-green-700 text-white font-bold text-xs h-6 py-0">
                 WIE Global Network
               </Button>
             </a>

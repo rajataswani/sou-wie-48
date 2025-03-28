@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ExternalLink, Menu, X } from "lucide-react";
@@ -74,7 +75,10 @@ const Navbar = () => {
     </li>
   );
   
-  const navbarPosition = scrollPosition > 50 ? 0 : isMobile ? 30 : 40;
+  // Calculate the navbar's position based on different conditions for mobile and desktop
+  const navbarPosition = isMobile 
+    ? (scrollPosition > 50 ? 0 : 50) // Increased top position for mobile to avoid overlap
+    : (scrollPosition > 50 ? 0 : 40); // Desktop: Stick to top when scrolled
   
   return (
     <nav 
