@@ -12,6 +12,7 @@ import JoinUs from "./pages/JoinUs";
 import EventDetails from "./pages/EventDetails";
 import AwardDetails from "./pages/AwardDetails";
 import BlackNavbar from "./components/BlackNavbar";
+import Navbar from "./components/Navbar";
 
 const queryClient = new QueryClient();
 
@@ -21,7 +22,10 @@ const App = () => (
       <Toaster />
       <Sonner />
       <Router>
-        <BlackNavbar />
+        <div className="relative">
+          <BlackNavbar />
+          <Navbar />
+        </div>
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/admin" element={<Admin />} />

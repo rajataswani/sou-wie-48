@@ -67,7 +67,7 @@ const Navbar = () => {
   );
   
   return (
-    <nav className={`relative w-full ${isMobile ? 'max-w-3xl mx-auto bg-white/90 backdrop-blur-sm shadow-sm rounded-full' : 'bg-purple-800 text-white'} my-6 py-3 px-4`}>
+    <nav className={`fixed top-0 left-0 right-0 z-50 w-full ${isMobile ? 'max-w-3xl mx-auto bg-white/90 backdrop-blur-sm shadow-sm rounded-full' : 'bg-purple-800 text-white'} my-6 py-3 px-4`}>
       {isMobile ? (
         <div className="flex items-center justify-between">
           <Link to="/" className="text-purple-800 font-semibold">IEEE WIE SOU</Link>

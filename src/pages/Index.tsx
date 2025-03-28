@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -9,7 +8,6 @@ import AdminLogin from "@/components/AdminLogin";
 import { useEvents } from "@/hooks/useEvents";
 import { useAwards } from "@/hooks/useAwards";
 import { Link } from "react-router-dom";
-import Navbar from "@/components/Navbar";
 import { Calendar as CalendarIcon, Award as AwardIcon } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 
@@ -20,8 +18,8 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-50 to-white">
-      <div className="pt-6">
-        <Navbar />
+      <div className="pt-24">
+        {/* No Navbar here anymore as it's now in App.tsx */}
       </div>
       
       {/* Hero Section */}

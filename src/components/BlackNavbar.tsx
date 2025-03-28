@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Facebook, Twitter, Instagram, Youtube, Linkedin, ChevronDown } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -29,7 +30,7 @@ const BlackNavbar = () => {
   ];
   
   return (
-    <nav className="w-full bg-[#f2e9f2] text-[#7f2c82] py-1 px-4 sticky top-0 z-50 border-t border-b border-black">
+    <nav className="w-full bg-[#f2e9f2] text-[#7f2c82] py-1 px-4 border-t border-b border-black">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center">
         {isMobile ? (
           <div className="w-full flex flex-col items-center gap-3 py-2">
