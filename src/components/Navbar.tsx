@@ -1,4 +1,5 @@
-import { useState } from "react";
+
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ExternalLink, Menu, X } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -8,6 +9,7 @@ import { Button } from "@/components/ui/button";
 const Navbar = () => {
   const isMobile = useIsMobile();
   const [isOpen, setIsOpen] = useState(false);
+  const [scrollPosition, setScrollPosition] = useState(0);
   
   const navItems = [
     { label: "Home", href: "/", isExternal: false, isScroll: false },
@@ -17,6 +19,15 @@ const Navbar = () => {
     { label: "Learn More", href: "/learn-more", isExternal: false, isScroll: false },
     { label: "Join Us", href: "https://ieee.socet.edu.in/contact/", isExternal: true, isScroll: false },
   ];
+  
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollPosition(window.scrollY);
+    };
+    
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
   
   const handleScrollClick = (event, href) => {
     event.preventDefault();
@@ -64,8 +75,17 @@ const Navbar = () => {
     </li>
   );
   
+  // Calculate the navbar's position based on scroll
+  const navbarPosition = scrollPosition > 50 ? 0 : isMobile ? 30 : 40;
+  
   return (
-    <nav className={`fixed top-10 left-0 right-0 z-50 w-full ${isMobile ? 'max-w-3xl mx-auto bg-white/90 backdrop-blur-sm shadow-sm rounded-full' : 'bg-purple-800 text-white'} my-6 py-3 px-4`}>
+    <nav 
+      className={`fixed left-0 right-0 z-50 w-full ${isMobile ? 'max-w-3xl mx-auto bg-white/90 backdrop-blur-sm shadow-sm rounded-full' : 'bg-purple-800 text-white'} my-6 py-3 px-4`}
+      style={{ 
+        top: `${navbarPosition}px`,
+        transition: 'top 0.3s ease-in-out'
+      }}
+    >
       {isMobile ? (
         <div className="flex items-center justify-between">
           <Link to="/" className="text-purple-800 font-semibold">IEEE WIE SOU</Link>

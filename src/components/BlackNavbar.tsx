@@ -30,7 +30,7 @@ const BlackNavbar = () => {
   ];
   
   return (
-    <nav className="w-full bg-[#f2e9f2] text-[#7f2c82] py-1 px-4 border-t border-b border-black absolute top-0 left-0 right-0 z-40">
+    <nav className="w-full bg-[#f2e9f2] text-[#7f2c82] py-1 px-4 border-t border-b border-black fixed top-0 left-0 right-0 z-30">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center">
         {isMobile ? (
           <div className="w-full flex flex-col items-center gap-3 py-2">
