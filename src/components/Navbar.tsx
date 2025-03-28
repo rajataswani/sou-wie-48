@@ -77,7 +77,7 @@ const Navbar = () => {
   
   // Calculate the navbar's position based on different conditions for mobile and desktop
   const navbarPosition = isMobile 
-    ? (scrollPosition > 50 ? 0 : 80) // Increased top position for mobile to avoid overlap
+    ? (scrollPosition > 50 ? 0 : 120) // Increased top position for mobile to avoid overlap
     : (scrollPosition > 50 ? 0 : 40); // Desktop: Stick to top when scrolled
   
   return (
