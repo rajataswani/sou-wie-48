@@ -82,7 +82,7 @@ const Navbar = () => {
   
   return (
     <nav 
-      className={`fixed left-0 right-0 z-50 w-full ${isMobile ? 'max-w-3xl mx-auto bg-white/90 backdrop-blur-sm shadow-sm rounded-full' : 'bg-purple-800 text-white'} my-6 py-3 px-4`}
+      className={`fixed left-0 right-0 z-60 w-full ${isMobile ? 'max-w-3xl mx-auto bg-white/90 backdrop-blur-sm shadow-sm rounded-full' : 'bg-purple-800 text-white'} my-6 py-3 px-4`}
       style={{ 
         top: `${navbarPosition}px`,
         transition: 'top 0.3s ease-in-out'
